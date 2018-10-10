@@ -28,7 +28,7 @@ class BestSellersController: UITableViewController {
         Service.shared.fetchCategoriesBestSeller(listName: list_name_encoded) { (courses, err) in
             if let err = err {
                 self.alertOfflineAndNotCached()
-                print("Failed to fetch courses:", err)
+                print("Failed to fetch Best Sellers:", err)
                 return
             }
             

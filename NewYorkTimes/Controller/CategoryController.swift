@@ -30,7 +30,7 @@ class CategoryController: UITableViewController {
 
                 self.presentOfflineView()
                 
-                print("Failed to fetch courses:", err)
+                print("Failed to fetch categories:", err)
                 return
             }
             

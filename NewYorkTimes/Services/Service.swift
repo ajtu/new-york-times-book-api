@@ -43,7 +43,7 @@ class Service: NSObject {
             }
             
             // check response
-
+            
             
             guard let data = data else { return }
             
@@ -56,21 +56,11 @@ class Service: NSObject {
                 let queryInfo = try JSONDecoder().decode(QueryDescription.self, from: data)
                 DispatchQueue.main.async {
                     completion(queryInfo.results, nil)
-                                        print(queryInfo.results)
+                    print(queryInfo.results)
                 }
             } catch let jsonErr {
                 print("Failed to decode:", jsonErr)
             }
-
-//            do {
-//                let queryInfo = try JSONDecoder().decode(QueryDescription.self, from: data)
-//                DispatchQueue.main.async {
-//                    completion(queryInfo.results, nil)
-////                    print(queryInfo.results)
-//                }
-//            } catch let jsonErr {
-//                print("Failed to decode:", jsonErr)
-//            }
             }.resume()
     }
     

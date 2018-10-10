@@ -32,7 +32,6 @@ class BookInfoController: UITableViewController {
         //        print(courseViewModels[indexPath.row])
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! InfoCell
-        //        let courseViewModel = courseViewModels[indexPath.row]
         let indexPath = indexPath.row
         if indexPath == 0 {
             cell.textLabel?.text = rawBookDetails[0].title
