@@ -24,7 +24,6 @@ class Service: NSObject {
                 
                 let retrieved = self.defaults.string(forKey: jsonURLString)
                 let retrievedData = retrieved?.data(using: .utf8)
-                print(retrievedData)
                 do {
                     let queryInfo = try JSONDecoder().decode(QueryDescription.self, from: retrievedData ?? NSData() as Data)
                     DispatchQueue.main.async {
@@ -79,7 +78,6 @@ class Service: NSObject {
                 
                 let retrieved = self.defaults.string(forKey: jsonURLString)
                 let retrievedData = retrieved?.data(using: .utf8)
-                print(retrievedData)
                 do {
                     let queryInfo = try JSONDecoder().decode(BookQueryDescription.self, from: retrievedData ?? NSData() as Data)
                     DispatchQueue.main.async {
@@ -108,11 +106,6 @@ class Service: NSObject {
 
             
             do {
-                
-                let jsonString  = String(data: data, encoding: .utf8)
-                print(jsonString)
-                
-                
                 let queryInfo = try JSONDecoder().decode(BookQueryDescription.self, from: data)
                 DispatchQueue.main.async {
                     print(queryInfo)
