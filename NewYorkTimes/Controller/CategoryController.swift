@@ -13,6 +13,9 @@ class CategoryController: UITableViewController {
     var courseViewModels = [CategoryViewModel]()
     let cellId = "cellId"
     
+    let offlineImageArray: [UIImage] = [UIImage.init(named: "book-0")!,UIImage.init(named: "book-1")!,UIImage.init(named: "book-2")!,UIImage.init(named: "book-3")!,UIImage.init(named: "book-4")!]
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +27,9 @@ class CategoryController: UITableViewController {
     fileprivate func fetchData() {
         Service.shared.fetchCategories { (courses, err) in
             if let err = err {
+
+                self.presentOfflineView()
+                
                 print("Failed to fetch courses:", err)
                 return
             }
@@ -83,8 +89,29 @@ class CategoryController: UITableViewController {
     }
     
     
-}
+    
 
+
+    func presentOfflineView(){
+        
+        DispatchQueue.main.async {
+            let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+            imageView.animationImages = self.offlineImageArray
+            imageView.animationDuration = 1.5
+            imageView.animationRepeatCount = -1
+            imageView.startAnimating()
+            
+            let offlineLabel = UILabel(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
+            offlineLabel.text = "No internet connection detected..."
+            offlineLabel.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            offlineLabel.textAlignment = .center
+            offlineLabel.textColor = UIColor.white
+            
+            self.view.addSubview(imageView)
+            self.view.addSubview(offlineLabel)
+        }
+}
+}
 class CustomNavigationController: UINavigationController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -99,3 +126,8 @@ extension UIColor {
         return UIColor(red: r/255, green: g/255, blue: b/255, alpha: 1)
     }
 }
+
+
+
+
+

@@ -20,4 +20,6 @@ struct Category : Decodable{
     let oldest_published_date:String
     let newest_published_date:String
     let updated:String
+    
+    
 }

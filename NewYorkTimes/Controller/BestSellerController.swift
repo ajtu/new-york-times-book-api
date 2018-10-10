@@ -27,6 +27,7 @@ class BestSellersController: UITableViewController {
     fileprivate func fetchData() {
         Service.shared.fetchCategoriesBestSeller(listName: list_name_encoded) { (courses, err) in
             if let err = err {
+                self.alertOfflineAndNotCached()
                 print("Failed to fetch courses:", err)
                 return
             }
@@ -51,14 +52,17 @@ class BestSellersController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
         let courseViewModel = courseViewModels[indexPath.row]
+        print(courseViewModel)
         
         let bookInfoController = BookInfoController()
         bookInfoController.book = courseViewModel
         bookInfoController.rawBookDetails = courseViewModel.book_details
         bookInfoController.rawBookReviews = courseViewModel.reviews
-        navigationController?.pushViewController(bookInfoController, animated: true)
-    }
+            navigationController?.pushViewController(bookInfoController, animated: true)
+             }
     
     
     fileprivate func setupTableView() {
@@ -123,6 +127,13 @@ class BestSellersController: UITableViewController {
             courseViewModels.sort() { $0.weeks_on_list > $1.weeks_on_list } // sort the books by # of weeks_on_list
             tableView.reloadData(); // notify the table view the data has changed
         }
+    }
+    
+    func alertOfflineAndNotCached(){
+        let alert = UIAlertController(title: "Data Not Saved", message: "Data is saved locally once connected to the Internet.\n\nPlease connect to Internet and try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+
     }
     
     
